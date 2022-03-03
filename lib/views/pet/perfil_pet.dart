@@ -18,7 +18,7 @@ class _PerfilCachorroState extends State<PerfilCachorro> {
     return Scaffold (
       appBar: AppBar(
         title: Text(
-          "Informações",
+          "Informações s",
         ),
         leading: IconButton(
           icon: Icon(Icons.close),
