@@ -1,21 +1,11 @@
-<<<<<<< HEAD
 # Meu-Pet
 Aplicativo Flutter
-=======
-# meu_pet
 
-A new Flutter project.
+Software desenvolvido para adoção de pets, utilizando Flutter e Firebase
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
->>>>>>> 4286c181f20a1902b6b8690f481aa80ed62ab968
+Algumas telas:
+![login](https://user-images.githubusercontent.com/26170686/156679007-3540c371-5c3e-4607-a977-6166f8c2ac52.png)
+![cadastro](https://user-images.githubusercontent.com/26170686/156679063-20d1cca3-7daf-4676-95aa-d5340e2158f1.png)
+![esqueci_senha](https://user-images.githubusercontent.com/26170686/156679077-cff1f915-f12e-4142-bd92-af2b2abe39ea.png)
+![configuracoes](https://user-images.githubusercontent.com/26170686/156679105-be86467b-a264-4102-a2e3-21247e1ca3b7.png)
+![perfil_usuario](https://user-images.githubusercontent.com/26170686/156679110-f71f3707-2011-416f-abb4-90216ec32b76.png)
