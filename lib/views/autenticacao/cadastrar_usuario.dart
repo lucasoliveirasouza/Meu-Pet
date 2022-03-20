@@ -18,9 +18,14 @@ class _CadastrarUsuarioPageState extends State<CadastrarUsuarioPage> {
   var genero = TextEditingController();
   var senha = TextEditingController();
 
+
+
   registrar() async{
     try{
       await context.read<AuthService>().registrar(email.text, senha.text);
+      UsuarioServices user = new UsuarioServices();
+      user.cadastrarUsuario(nome.text,email.text,telefone.text,genero.text,senha.text,endereco.text);
+
     }on AuthException catch(e){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
     }

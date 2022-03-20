@@ -27,6 +27,10 @@ class AuthService extends ChangeNotifier{
     usuario = _auth.currentUser;
     notifyListeners();
   }
+
+  emailUser(){
+    return _auth.currentUser!.email;
+  }
   registrar(String email, String senha) async{
       try{
 
