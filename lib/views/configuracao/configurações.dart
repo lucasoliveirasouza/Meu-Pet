@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meu_pet/services/auth_service.dart';
 import 'package:meu_pet/views/autenticacao/login.dart';
 import 'package:meu_pet/views/configuracao/ajuda/ajuda.dart';
 import 'package:meu_pet/views/configuracao/conta/conta.dart';
@@ -29,12 +30,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
               leading: Icon(Icons.exit_to_app),
               title: Text("Sair"),
               onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login(),
-                  ),
-                );
+                AuthService().logout();
               },
             ),
 

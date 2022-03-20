@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meu_pet/services/auth_service.dart';
 import 'package:meu_pet/services/usuario/usuario_services.dart';
+import 'package:provider/provider.dart';
 
 class CadastrarUsuarioPage extends StatefulWidget {
 
@@ -15,6 +17,14 @@ class _CadastrarUsuarioPageState extends State<CadastrarUsuarioPage> {
   var endereco = TextEditingController();
   var genero = TextEditingController();
   var senha = TextEditingController();
+
+  registrar() async{
+    try{
+      await context.read<AuthService>().registrar(email.text, senha.text);
+    }on AuthException catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,9 +177,7 @@ class _CadastrarUsuarioPageState extends State<CadastrarUsuarioPage> {
                   ),
 
                   onPressed: (){
-                    UsuarioServices user = new UsuarioServices();
-                    user.cadastrarUsuario(nome.text,email.text,telefone.text,genero.text,senha.text,endereco.text);
-                    Navigator.pop(context,false);
+                    registrar();
                   },
                 ),
               ),
