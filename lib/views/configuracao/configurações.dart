@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meu_pet/services/auth_service.dart';
+import 'package:meu_pet/services/usuario/usuario_services.dart';
 import 'package:meu_pet/views/autenticacao/login.dart';
 import 'package:meu_pet/views/configuracao/ajuda/ajuda.dart';
 import 'package:meu_pet/views/configuracao/conta/conta.dart';
@@ -29,12 +31,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
               leading: Icon(Icons.exit_to_app),
               title: Text("Sair"),
               onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login(),
-                  ),
-                );
+                AuthService().logout();
               },
             ),
 
@@ -42,8 +39,15 @@ class _ConfiguracoesState extends State<Configuracoes> {
           );
         });
   }
+
+
   @override
   Widget build(BuildContext context) {
+
+
+
+    UsuarioServices user = new UsuarioServices();
+    user.existeUsuario(AuthService().emailUser());
     return Scaffold(
       appBar: AppBar(
         title: Text("Configurações"),
@@ -72,7 +76,8 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 backgroundImage: AssetImage('assets/lucas.png'),
 
               ),
-              title: Text("Lucas Souza"),
+
+              title: Text(user.getNome()),
 
               trailing: Icon(
                 Icons.edit,
