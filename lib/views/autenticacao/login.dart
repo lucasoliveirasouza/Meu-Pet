@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:meu_pet/services/auth_service.dart';
 import 'package:meu_pet/services/usuario/usuario_services.dart';
 import 'package:meu_pet/views/autenticacao/resetar_senha.dart';
 import 'package:meu_pet/views/autenticacao/cadastrar_usuario.dart';
 import 'package:meu_pet/views/home/home.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -10,8 +12,45 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  var senha = TextEditingController();
-  var email = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final senha = TextEditingController();
+  final email = TextEditingController();
+
+  bool isLogin = true;
+
+  late String titulo;
+  late String actionButton;
+  late String toggleButton;
+
+  void initState(){
+    super.initState();
+    setFormAction(true);
+  }
+
+  setFormAction(bool acao){
+    setState(() {
+      isLogin = acao;
+      if(isLogin){
+        titulo = "Bem vindo";
+        actionButton = "Login";
+        toggleButton = "Ainda não tem conta? Cadastre-se agora";
+      }else{
+        titulo = "Crie sua conta";
+        actionButton = "Cadastrar";
+        toggleButton = "Voltar ao login";
+      }
+    });
+  }
+
+  login() async{
+    try{
+      await context.read<AuthService>().login(email.text, senha.text);
+    }on AuthException catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +84,13 @@ class _LoginState extends State<Login> {
                     fontSize: 20,
                   )
               ),
+              validator: (value){
+                if(value!.isEmpty){
+                  return "Informe o email corretamente";
+                }else{
+                  return null;
+                }
+              },
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -64,6 +110,15 @@ class _LoginState extends State<Login> {
                     fontSize: 20,
                   )
               ),
+              validator: (value){
+                if(value!.isEmpty){
+                  return "Informe a senha corretamente";
+                }else if(value.length < 6){
+                  return "A senha deve ter pelo menos 6 caracteres";
+                }else{
+                  return null;
+                }
+              },
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -102,7 +157,7 @@ class _LoginState extends State<Login> {
               child: SizedBox.expand(
                 child: FlatButton(
                   child: Text(
-                    "Login",
+                    actionButton,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -113,12 +168,7 @@ class _LoginState extends State<Login> {
 
                   onPressed: (){
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PaginaInicial(),
-                      ),
-                    );
+                    login();
                   },
                 ),
               ),
@@ -131,7 +181,7 @@ class _LoginState extends State<Login> {
               alignment: Alignment.center,
               child: FlatButton(
                 child: Text(
-                  "Cadastrar usuário",
+                  toggleButton,
                 ),
                 onPressed: (){
                   Navigator.push(

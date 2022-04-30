@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UsuarioServices{
-
+   String nome ="Batata";
   CollectionReference usuarios = FirebaseFirestore.instance.collection('usuarios');
 
   UsuarioServices(){}
@@ -20,18 +20,22 @@ class UsuarioServices{
     });
   }
 
-  Future<int> existeUsuario(email) async{
-    int num = 0;
+  Future<String> existeUsuario(email) async{
+
+
     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('usuarios').get();
     snapshot.docs.forEach((d) {
-        if(d["email"] == email){
-         num = 1;
-        }
 
+        nome = d["email"];
+        print(d["email"] == "lycasoliveira@gmail.com");
     });
 
-    return num;
+    return nome;
   }
-
+  String getNome(){
+    existeUsuario("teste");
+    nome = "feio";
+    return nome;
+  }
 
 }
